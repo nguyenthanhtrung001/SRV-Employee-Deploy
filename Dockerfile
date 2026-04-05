@@ -1,7 +1,7 @@
 # ========================
 # Stage 1: Build
 # ========================
-FROM maven:3.9.2-eclipse-temurin-21 AS build
+FROM maven:3.9.2-eclipse-temurin-21-jammy AS build
 WORKDIR /app
 
 # Sao chép file pom.xml trước để cache dependencies
