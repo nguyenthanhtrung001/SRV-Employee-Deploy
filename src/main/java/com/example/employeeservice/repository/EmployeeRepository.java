@@ -20,5 +20,4 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findAllNonAdminEmployees();
     @Query("SELECT e FROM Employee e WHERE e.warehouseId = :warehouseId AND e.id <> :employeeId AND (e.accountId IS NULL OR e.accountId <> 'admin')")
     List<Employee> findAllNonAdminEmployeesByWarehouseIdAndNotEmployeeId(@Param("warehouseId") Long warehouseId, @Param("employeeId") Long employeeId);
-
 }

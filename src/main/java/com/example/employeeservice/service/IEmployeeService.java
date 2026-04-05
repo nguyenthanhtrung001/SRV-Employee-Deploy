@@ -1,7 +1,9 @@
 package com.example.employeeservice.service;
 
+import com.example.employeeservice.dto.response.QCLeaderboardDTO;
 import com.example.employeeservice.entity.Employee;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IEmployeeService {
