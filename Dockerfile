@@ -1,25 +1,29 @@
-# Build stage
-FROM maven:3-openjdk-17 AS build
+# ========================
+# 1. Build stage
+# ========================
+FROM maven:3.9.4-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Sao chép toàn bộ mã nguồn vào thư mục làm việc
+# Copy toàn bộ mã nguồn vào container
 COPY . .
 
-# Build ứng dụng và bỏ qua các bài kiểm tra
+# Build project, bỏ qua test
 RUN mvn clean package -DskipTests
 
-# Kiểm tra thư mục target để đảm bảo file WAR đã được tạo
+# Kiểm tra file WAR
 RUN ls -la /app/target
 
-# Run stage
-FROM openjdk:17-jdk-slim
+# ========================
+# 2. Run stage
+# ========================
+FROM eclipse-temurin:17-jdk-jammy
 WORKDIR /app
 
-# Sao chép file WAR từ build stage
-COPY --from=build /app/target/employee-service-0.0.1-SNAPSHOT.war drcomputer.war
+# Copy file WAR từ build stage
+COPY --from=build /app/target/employee-service-0.0.1-SNAPSHOT.war employee-service.war
 
-# Mở cổng 8080 để truy cập ứng dụng
+# Mở cổng
 EXPOSE 8080
 
 # Khởi chạy ứng dụng
-ENTRYPOINT ["java", "-jar", "drcomputer.war"]
+ENTRYPOINT ["java", "-jar", "employee-service.war"]
