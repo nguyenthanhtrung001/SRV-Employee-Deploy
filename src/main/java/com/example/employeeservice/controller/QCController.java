@@ -29,6 +29,10 @@ public class QCController {
     }
 
     // ✅ SCAN
+    @GetMapping("/health")
+    public String health() {
+        return "OK";
+    }
     @PostMapping("/scan")
     public ResponseEntity<ApiResponse<QC>> scan(@RequestBody QCRequest request) {
         QC qc = qcService.scan(request);
